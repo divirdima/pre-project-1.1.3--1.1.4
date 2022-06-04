@@ -8,29 +8,13 @@ import org.hibernate.cfg.Configuration;
 import jm.task.core.jdbc.model.User;
 
 public class Util {
-    
-	private Connection connection;
+	
 	private static SessionFactory sessionFactory;
 	
 	public Util() {
 		
-    }
+	}
     
-	public Util(String dbName, String username, String password) {
-		String url = "jdbc:mysql://localhost:3306/" + dbName;
-				
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(url, username, password);
-			this.connection = connection;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Connection getConnection() {
-		return connection;
-	}
 	
 	public SessionFactory getSessionFactory() {
 		String url = "jdbc:mysql://localhost:3306/" + "first";
