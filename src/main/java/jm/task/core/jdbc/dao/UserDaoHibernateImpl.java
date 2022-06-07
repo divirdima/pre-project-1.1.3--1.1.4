@@ -61,11 +61,14 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
 
     @Override
     public void removeUserById(long id) {
-    	Session session = sessionFactory.getCurrentSession();
-    	session.getTransaction().begin();
-    	Query query = session.createQuery("DELETE User where id = :idParam");
-    	query.setParameter("idParam", id);
-    	query.executeUpdate();
+	    try (Session session = sessionFactory.getCurrentSession()) {
+    		session.getTransaction().begin();
+    		Query query = session.createQuery("DELETE User where id = :idParam");
+    		query.setParameter("idParam", id);
+    		query.executeUpdate();
+    	} catch (HibernateException ex) {
+    		ex.printStackTrace();
+    	}
     }
 
     @Override
