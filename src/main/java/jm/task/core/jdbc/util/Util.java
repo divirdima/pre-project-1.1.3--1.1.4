@@ -9,15 +9,19 @@ import jm.task.core.jdbc.model.User;
 
 public class Util {
 	
+	private static final String URL = "jdbc:mysql://localhost:3306/" + "first";
+	private static final String LOGIN = "root";
+	private static final String PASSWORD = "1111";
 	private static Util INSTANCE;
 	private static SessionFactory sessionFactory;
+	private static Connection connection;
 	
 	private Util() {
 		Properties prop = new Properties();
-		prop.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/" + "first");
+		prop.setProperty("hibernate.connection.url", URL);
         prop.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
-        prop.setProperty("hibernate.connection.username", "root");
-        prop.setProperty("hibernate.connection.password", "1111");
+        prop.setProperty("hibernate.connection.username", LOGIN);
+        prop.setProperty("hibernate.connection.password", PASSWORD);
         prop.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
         prop.setProperty("show_sql", "true"); //to see the generated sql query
         prop.setProperty("hibernate.hbm2ddl.auto", "create-drop");
@@ -37,5 +41,14 @@ public class Util {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+	
+	public static Connection getConnection() {
+        try {
+            connection = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return connection;
+    }
 	
 }

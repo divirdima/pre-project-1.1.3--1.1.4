@@ -8,8 +8,8 @@ public class UserServiceImpl implements UserService {
 	
 	private UserDao userDao;
 	
-	public UserServiceImpl(String dbName, String username, String password) {
-		userDao = new UserDaoHibernateImpl();
+	public UserServiceImpl() {
+		userDao = new UserDaoJDBCImpl();
 	}
     public void createUsersTable() {
     	userDao.createUsersTable();
