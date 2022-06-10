@@ -17,28 +17,23 @@ public class Util {
 	private static Connection connection;
 	
 	private Util() {
-		Properties prop = new Properties();
-		prop.setProperty("hibernate.connection.url", URL);
-        prop.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
-        prop.setProperty("hibernate.connection.username", LOGIN);
-        prop.setProperty("hibernate.connection.password", PASSWORD);
-        prop.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
-        prop.setProperty("show_sql", "true"); //to see the generated sql query
-        prop.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        prop.setProperty("hibernate.current_session_context_class", "org.hibernate.context.internal.ThreadLocalSessionContext");
 		
-		sessionFactory = new Configuration().addAnnotatedClass(User.class).addProperties(prop).buildSessionFactory();
     }
-    
 	
-	public static Util getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new Util();
+	public static SessionFactory getSessionFactory() {
+		if (sessionFactory == null) {
+			Properties prop = new Properties();
+			prop.setProperty("hibernate.connection.url", URL);
+	        prop.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
+	        prop.setProperty("hibernate.connection.username", LOGIN);
+	        prop.setProperty("hibernate.connection.password", PASSWORD);
+	        prop.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
+	        prop.setProperty("show_sql", "true"); //to see the generated sql query
+	        prop.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+	        prop.setProperty("hibernate.current_session_context_class", "org.hibernate.context.internal.ThreadLocalSessionContext");
+			
+			sessionFactory = new Configuration().addAnnotatedClass(User.class).addProperties(prop).buildSessionFactory();
 		}
-		return INSTANCE;
-	}
-	
-	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 	
