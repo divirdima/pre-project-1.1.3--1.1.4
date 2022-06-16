@@ -12,7 +12,6 @@ public class Util {
 	private static final String URL = "jdbc:mysql://localhost:3306/" + "first";
 	private static final String LOGIN = "root";
 	private static final String PASSWORD = "1111";
-	private static Util INSTANCE;
 	private static SessionFactory sessionFactory;
 	private static Connection connection;
 	
